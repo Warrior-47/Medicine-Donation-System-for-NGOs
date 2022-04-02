@@ -1,0 +1,51 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="main">
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container" style="border-radius: 10px;">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Register</legend>
+                            {{ form|crispy }}
+                        </fieldset>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Submit"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            if ($("#id_is_ngo").is(":checked")) {
+                $("label[for=id_fullname]").text("NGO Name");
+                $("label[for=id_identity]").text("NGO Identification Number");
+                $("label[for=id_phone]").text("NGO Phone Number");
+            } else {
+                $("label[for=id_fullname]").text("Full Name");
+                $("label[for=id_identity]").text("NID");
+                $("label[for=id_phone]").text("Contact Number");
+            }
+        });
+        $("#id_is_ngo").on('click', function () {
+            if ($("#id_is_ngo").is(":checked")) {
+                $("label[for=id_fullname]").text("NGO Name");
+                $("label[for=id_identity]").text("NGO Identification Number");
+                $("label[for=id_phone]").text("NGO Phone Number");
+            } else {
+                $("label[for=id_fullname]").text("Full Name");
+                $("label[for=id_identity]").text("NID");
+                $("label[for=id_phone]").text("Contact Number");
+            }
+        });
+    </script>
+{% endblock %}
