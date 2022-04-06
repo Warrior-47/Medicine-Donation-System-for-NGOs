@@ -15,11 +15,21 @@
     
         <!-- Font Icon -->
         <link rel="stylesheet" href="{% static 'account/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'account/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'account/vendor/jquery-ui/jquery-ui.min.css' %}">
-    
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/animate/animate.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/css-hamburgers/hamburgers.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/animsition/css/animsition.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/select2/select2.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/daterangepicker/daterangepicker.css' %}">
+
         <!-- Main css -->
         <link href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
+        
+        {% block main_css %}
+
+        {% endblock %}
 
         <style>
             .asteriskField {
@@ -27,26 +37,11 @@
             }
         </style>
     </head>
-<body>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+    <body>
+        {% block content %}
+        {% endblock %}
 
-    {% block content %}
-    {% endblock %}
-
-    <!-- JS -->
-    <script src="{% static 'account/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'account/vendor/jquery-ui/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'account/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'account/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
-    <script src="{% static 'account/js/main.js' %}"></script>
-
-    {% block scripts %}
-    {% endblock %}
-</body>
+        {% block scripts %}
+        {% endblock %}
+    </body>
 </html>

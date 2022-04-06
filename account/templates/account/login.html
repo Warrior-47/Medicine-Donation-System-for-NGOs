@@ -1,0 +1,91 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block main_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/main.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="POST">
+                    {% csrf_token %}
+                    <span class="login100-form-title p-b-26">
+                        Login
+                    </span>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                        <div class="">
+                            {% for error in form.non_field_errors %}
+                                <p class="text-danger text-center fw-bold">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="wrap-input100 validate-input">
+                        {{ form.username.label }}
+                        {{ form.username }}
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        {{ form.password.label }}
+                        {{ form.password }}
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-center p-t-115">
+                        <span class="txt1">
+                            Don't have an account?
+                        </span>
+
+                        <a class="txt2" href="{% url 'register' %}">
+                            Sign Up
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        
+
+    <div id="dropDownSelect1"></div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'account/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+	<script src="{% static 'account/vendor/animsition/js/animsition.min.js' %}"></script>
+
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+	<script src="{% static 'account/vendor/select2/select2.min.js' %}"></script>
+
+	<script src="{% static 'account/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'account/vendor/daterangepicker/daterangepicker.js' %}"></script>
+
+	<script src="{% static 'account/vendor/countdowntime/countdowntime.js' %}"></script>
+	<script src="{% static 'account/js/main_login.js' %}"></script>
+{% endblock %}
