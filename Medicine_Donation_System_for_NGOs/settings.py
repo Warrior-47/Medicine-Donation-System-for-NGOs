@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'DonationSystem.apps.DonationsystemConfig',
+    'search.apps.SearchConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',

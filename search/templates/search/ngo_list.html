@@ -1,0 +1,33 @@
+{% extends "DonationSystem/base.html" %}
+{% load static %}
+
+{% block content %}
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="mt-3">NGOs matching your search:</h2>
+        </div>
+    </div>
+</section>
+<section class="portfolio-details">
+    <div class="container">
+        <div class="row gy-4">
+            {% for ngo in data %}
+                <div class="col-lg-4">
+                    <div class="card bg-light" style="width: 18rem;">
+                        <img src="{% static 'img/default.png' %}" class="card-img-top" alt="{{ ngo.fullname}} profile picture">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ ngo.fullname }}</h5>
+                          <p class="card-text"><span class="fw-bold">Email:</span> {{ ngo.email }}</p>
+                          <p class="card-text"><span class="fw-bold">Contact Number:</span> {{ ngo.phone }}</p>
+                          <p class="card-text"><span class="fw-bold">Location:</span> Address Here</p>
+                          <a href="#" class="btn btn-primary">Medicine List</a>
+                          <a href="#" class="btn btn-primary float-end">Donate</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
