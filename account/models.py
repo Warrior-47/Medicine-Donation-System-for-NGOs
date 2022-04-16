@@ -11,3 +11,7 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return f'{self.username}, NGO: {self.is_ngo}'
+
+class testtable(models.Model):
+    testfiedl1=models.CharField(max_length=10,blank=True)
+    testfiedl2=models.CharField(max_length=10,blank=True)        
