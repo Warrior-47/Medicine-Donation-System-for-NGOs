@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'DonationRequestSystem.apps.DonationrequestsystemConfig',
     'account.apps.AccountConfig',
     'DonationSystem.apps.DonationsystemConfig',
+    'search.apps.SearchConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
