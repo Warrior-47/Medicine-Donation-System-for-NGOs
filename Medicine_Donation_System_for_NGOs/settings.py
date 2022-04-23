@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'DonationRequestSystem.apps.DonationrequestsystemConfig',
     'account.apps.AccountConfig',
     'DonationSystem.apps.DonationsystemConfig',
     'crispy_forms',
