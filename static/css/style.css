@@ -1652,3 +1652,26 @@ section {
   color: #fff;
   text-decoration: none;
 }
+
+.outline-base {
+  border-color: #2487ce;
+  color: #2487ce;
+}
+
+.outline-base:hover {
+  background: #2487ce;
+  color: white;
+}
+
+.searchbar {
+  width: 450px;
+  color: black;
+}
+
+.alert-fixed {
+  position:fixed; 
+  top: 87px; 
+  left: 0px; 
+  width: 100%;
+  border-radius:0px
+}

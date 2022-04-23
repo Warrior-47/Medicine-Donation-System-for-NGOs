@@ -36,12 +36,33 @@
             <h1 class="logo"><a href="index.html">Reaching Doors</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo"><img src="{% static '/img/logo.png" alt="" class="img-fluid"></a>-->
+            
+            {% if not request.user.is_ngo %}
+            <form class="input-group justify-content-center" method="GET">
+                <div class="form-outline">
+                  <input type="search" id="form1" class="form-control searchbar ms-4" name="ngo_name" />
+                </div>
+                <button type="submit" class="btn outline-base">
+                    Search NGO
+                </button>
+            </form>
+            {% endif %}
 
             <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Dashboard</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'dashboard' %}">Dashboard</a></li>
+
+                {% if not request.user.is_ngo %}
+                <li class="dropdown"><a href="#"><span>Prioritized Search</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'medicine_priority' %}">Prioritize Medicine</a></li>
+                        <li><a href="{% url 'distance_priority' %}">Prioritize Distance</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+
                 <li><a class="nav-link scrollto" href="#">Notifications</a></li>
-                
+
                 {% if user.is_authenticated %}
                     <li><a class="getstarted scrollto" href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
@@ -53,14 +74,17 @@
         </div>
     </header>
 
-    <section id="hero" class="d-flex align-items-center">
-        <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-            {% block content %}
+    {% block content %}
 
-            {% endblock %}
-        </div>
-    </section>
+    {% endblock %}
 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-fixed text-center fw-bold">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <!-- Vendor JS Files -->
     <script src="{% static '/vendor/purecounter/purecounter.js' %}"></script>
     <script src="{% static '/vendor/aos/aos.js' %}"></script>
