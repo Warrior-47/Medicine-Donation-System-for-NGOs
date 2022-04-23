@@ -1,14 +1,53 @@
 {% extends "DonationSystem/base.html" %}
+{% load static %}
 
 {% block content %}
-<section id="hero" class="d-flex align-items-center">
-    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center">
-            <div class="col-xl-7 col-lg-9 text-center">
-                <h1>Welcome To Medicine List</h1>
-                <h2>[Show Medicine List Here]</h2>
-            </div>
-        </div>
+    <div class="row justify-content-center">
+        <div class="col-xl-7 col-xl-12">
+            <h1>Medicine List</h1>
+            {% if user.is_authenticated and is_ngo %}
+            <table class="table text-center table-hover border mt-2">
+                <thead>
+                  <tr class= "table-primary">
+                    <th scope="col">Medicine Name</th>
+                    <th scope="col">Dosage Amount</th>
+                    <th scope="col">Medicine Priority</th>
+                    <th scope="col">Amount Required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for data in context %}
+                  <tr>
+                    <td>{{data.MedicineName}}</td>
+                    <td>{{data.DosageAmount}}</td>
+                    <td>{{data.MedicinePriority}}</td>
+                    <td>{{data.AmountRequired}}</td>
+                  </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+            {% elif user.is_authenticated %}
+            <table class="table text-center table-hover border mt-2">
+                <thead>
+                  <tr class= "table-primary">
+                    <th scope="col">Image</th>
+                    <th scope="col">Medicine Name</th>
+                    <th scope="col">Dosage Amount</th>
+                    <th scope="col">Pills Left</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for data in context %}
+                  <tr>
+                    <td class="w-25"><img class='img-thumbnail w-25' src="{% static data.ExpiryDateImage.url %}" alt=""></td>
+                    <td class="w-25 align-middle">{{data.MedicineName}}</td>
+                    <td class="w-25 align-middle">{{data.DosageAmount}}</td>
+                    <td class="w-25 align-middle">{{data.PillsLeft}}</td>
+                  </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+            {%endif%}
     </div>
 </section>
 {% endblock %}

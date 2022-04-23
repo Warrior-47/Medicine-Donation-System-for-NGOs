@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'DonationRequestSystem.apps.DonationrequestsystemConfig',
     'account.apps.AccountConfig',
     'DonationSystem.apps.DonationsystemConfig',
     'search.apps.SearchConfig',
@@ -124,6 +125,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, STATIC_URL, 'img')
+MEDIA_URL = '/img/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
