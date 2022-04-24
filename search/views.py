@@ -1,18 +1,11 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 
-from account.models import CustomUser
 from DonationSystem.models import Donor_MedicineListInfo, NGO_MedicineListInfo
 from .utilities import medicine_prioritized_data
+from account.models import CustomUser
 
 # Create your views here.
-def medicine(request):
-    return render(request, 'search/ngo_list.html', { 'data': 'Medicine Priority'})
-
-def distance(request):
-    return render(request, 'search/ngo_list.html', { 'data': 'Distance Priority'})
-
-
 def ngo_search(request, ngo_name):
     check = request.GET.get('ngo_name')
     if check:
@@ -33,6 +26,11 @@ def priority_search(request, search_type):
         ngo_med_lists = NGO_MedicineListInfo.objects.values('NGO', 'MedicineName', 'MedicinePriority', 'NGO__fullname', 'NGO__email', 'NGO__phone')
 
         ngo_list = medicine_prioritized_data(donor_med_list, ngo_med_lists)
+    elif search_type == 'distance':
+        pass
+
+    else:
+        return redirect('dashboard')
 
     return render(request, 'search/ngo_list.html', { 'data': ngo_list })
 
