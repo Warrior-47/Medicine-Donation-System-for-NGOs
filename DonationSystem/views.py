@@ -59,7 +59,7 @@ def add_medicine(request):
                 PillsLeft = form.cleaned_data['PillsLeft']
                 ExpiryDateImage = form.cleaned_data['ExpiryDateImage']
 
-                NGO_MedicineListInfo.objects.create(MedicineName=MedicineName,DosageAmount=DosageAmount,PillsLeft=PillsLeft
+                Donor_MedicineListInfo.objects.create(MedicineName=MedicineName,DosageAmount=DosageAmount,PillsLeft=PillsLeft
                                                 ,ExpiryDateImage=ExpiryDateImage,Donor=request.user)
 
                 
