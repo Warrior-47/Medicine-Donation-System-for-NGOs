@@ -51,7 +51,7 @@ def donation_decision(request):
                 if len(donatedMedicines.objects.filter(donation_request=i)) != 0:
                     context.append(i)
 
-            accepted_donors = donationRequest.objects.filter(NGO=request.user,Acceptance_Status=True)
+            accepted_donors = donationRequest.objects.filter(NGO=request.user,Acceptance_Status=True,Delivery_status='pending')
             return render(request,  'DonationRequestSystem/ngo_notification.html',{ 'context':context, 'is_ngo': request.user.is_ngo, 'accepted_donors':accepted_donors })
 
         else:
@@ -95,3 +95,7 @@ def donationDetailsInPerson(request,pk):
 def donationReject(request, pk):
     donatedMedicines.objects.filter(donation_request=pk).delete()
     return redirect('dashboard')
+
+def donationComplete(request,pk):
+    donationRequest.objects.filter(pk=pk).update(Delivery_status='Complete')
+    return redirect('ngo_notification')

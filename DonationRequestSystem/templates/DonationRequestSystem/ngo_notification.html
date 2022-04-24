@@ -45,6 +45,7 @@
                   <th>Donor Name</th>
                   <th>Donor Contact Number</th>
                   <th>Donor Address</th>
+                  <th><center>Acceptance Status</center></th>
                 </tr>
               </thead>
               <tbody>
@@ -53,6 +54,7 @@
                     <td>{{data.Donor.fullname}}</td>
                     <td>{{data.Donor.phone}}</td>
                     <td>{{data.Pick_Up_address}}</td>
+                    <td><center><a class="btn btn-success" href="{% url 'donationComplete' pk=data.pk %}" >Mark As Complete</a>
                   </tr>
                 {% endfor %}
               </tbody>
@@ -66,6 +68,7 @@
                   <th>Pick-Up Date</th>
                   <th>Pick-Up Time</th>
                   <th>Acceptance Status</th>
+                  <th>Delivery Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -79,6 +82,11 @@
                       <td>Accepted</td>
                     {% else %}
                       <td>Rejected</td>
+                    {% endif %}
+                    {% if data.Delivery_status == 'Complete' %}
+                      <td>Completed</td>
+                    {% else %}
+                      <td>Pending</td>
                     {% endif %}
                   </tr>
                 {%endfor%}
