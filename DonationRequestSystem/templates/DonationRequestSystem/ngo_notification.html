@@ -36,6 +36,54 @@
                 {%endfor%}
                 </tbody>
             </table>
+
+            <hr>
+            <h1 class="mt-5">Accepted Request Details</h1>
+            <table class="table text-center table-hover border mt-2">
+              <thead>
+                <tr class= "table-primary">
+                  <th>Donor Name</th>
+                  <th>Donor Contact Number</th>
+                  <th>Donor Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for data in accepted_donors %}
+                  <tr>
+                    <td>{{data.Donor.fullname}}</td>
+                    <td>{{data.Donor.phone}}</td>
+                    <td>{{data.Pick_Up_address}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+            {% elif user.is_authenticated %}
+            <table class="table text-center table-hover border mt-2">
+              <thead>
+                <tr class= "table-primary">
+                  <th>NGO Name</th>
+                  <th>Delivery Type</th>
+                  <th>Pick-Up Date</th>
+                  <th>Pick-Up Time</th>
+                  <th>Acceptance Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for data in context %}
+                  <tr>
+                    <td>{{data.NGO.fullname}}</td>
+                    <td>{{data.Delivery_type}}</td>
+                    <td>{{data.Pick_Up_date}}</td>
+                    <td>{{data.Pick_Up_time}}</td>
+                    {% if data.Acceptance_Status %}
+                      <td>Accepted</td>
+                    {% else %}
+                      <td>Rejected</td>
+                    {% endif %}
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
             {%endif%}
         </div>
     </div>

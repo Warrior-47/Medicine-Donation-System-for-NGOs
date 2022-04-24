@@ -1,0 +1,54 @@
+{% extends "DonationSystem/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block main_css %}
+    <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="mt-3">UPDATE MEDICINE</h2>
+                </div>
+                    <form method="POST" id="add_medicine-form" class="add_medicine-form">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            {% if user.is_ngo %}
+                                {{ form.MedicineName |as_crispy_field }}
+                                {{ form.DosageAmount|as_crispy_field }}
+                                {{ form.MedicinePriority|as_crispy_field }}
+                                {{ form.AmountRequired|as_crispy_field }}
+                            {% else %}
+                                {{ form.MedicineName|as_crispy_field }}
+                                {{ form.DosageAmount|as_crispy_field }}
+                                {{ form.PillsLeft|as_crispy_field }}
+
+                            {% endif %}
+                        </fieldset>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="btn btn-success mt-3" value="Save"/>
+                            <span class="float-end col-1 mt-4"><a class="btn btn-primary d-grid gap-2" href="{% url 'dashboard' %}">Cancel</a></span>
+                        </div>
+                    </form>
+            </div>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'account/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'account/vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'account/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'account/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
+    <script src="{% static 'account/js/main.js' %}"></script>
+{% endblock %}
+
+
+
+

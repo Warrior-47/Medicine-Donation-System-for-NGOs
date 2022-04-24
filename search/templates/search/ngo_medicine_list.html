@@ -1,0 +1,36 @@
+{% extends "DonationSystem/base.html" %}
+
+{% block content %}
+<section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center">
+          <div class="col-xl-7 col-xl-12">
+              <h1>
+                {{ ngo_name }}'s Medicine List
+                <span class="float-end mt-2"><a href="{% url 'donation' pk=ngo_pk %}" class="btn btn-primary">Donate</a></span>
+              </h1>
+              <table class="table text-center table-hover border mt-2">
+                  <thead>
+                    <tr class= "table-primary">
+                      <th scope="col">Medicine Name</th>
+                      <th scope="col">Dosage Amount</th>
+                      <th scope="col">Medicine Priority</th>
+                      <th scope="col">Amount Required</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for data in medicine_list %}
+                    <tr>
+                      <td>{{data.MedicineName}}</td>
+                      <td>{{data.DosageAmount}}</td>
+                      <td>{{data.MedicinePriority}}</td>
+                      <td>{{data.AmountRequired}}</td>
+                    </tr>
+                  {%endfor%}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+</section>
+{% endblock %}
