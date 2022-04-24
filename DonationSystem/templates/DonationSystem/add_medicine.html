@@ -13,7 +13,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h2 class="mt-3">ADD MEDICINE</h2>
                 </div>
-                    <form method="POST" id="add_medicine-form" class="add_medicine-form">
+                    <form method="POST" enctype="multipart/form-data" id="add_medicine-form" class="add_medicine-form">
                         {% csrf_token %}
                         <fieldset class="form-group">
                             {% if user.is_ngo %}
