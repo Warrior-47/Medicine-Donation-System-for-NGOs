@@ -8,6 +8,7 @@ urlpatterns = [
     path('donation_details/<int:pk>/',views.donationDetails,name='donationDetails'),
     path('accept/<int:pk>/',views.donationDetailsInPerson,name='donationDetailsIP'),
     path('reject/<int:pk>/',views.donationReject,name='donationReject'),
+    path('complete/<int:pk>/',views.donationComplete,name='donationComplete'),
     
     
    
