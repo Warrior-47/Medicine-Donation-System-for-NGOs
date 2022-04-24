@@ -3,11 +3,14 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib import messages
 
-from .forms import donationRequestForm
+from DonationSystem.views import dashboard
+
+from .forms import donationRequestForm,deliveryDetails
 from  account.models import CustomUser
 from DonationSystem.models import Donor_MedicineListInfo,NGO_MedicineListInfo
-# Create your views here.
 from DonationRequestSystem.models import donationRequest,donatedMedicines
+
+
 def donation(request,pk):
     if request.method == 'POST':
         form = donationRequestForm(request.POST)
@@ -40,4 +43,40 @@ def donation(request,pk):
 
 def test(request):
     return HttpResponse('<h1>test site</h1>')
-        
+
+def donation_decision(request):
+    if request.user.is_authenticated:
+        if request.user.is_ngo:
+            context = donationRequest.objects.filter(NGO=request.user,Acceptance_Status=False)
+            return render(request,  'DonationRequestSystem/ngo_notification.html',{'context':context, 'is_ngo': request.user.is_ngo })
+
+    return render(request, 'DonationRequestSystem/ngo_notification.html')
+
+
+def donationDetails(request,pk):
+    
+    request_obj = donationRequest.objects.get(pk=pk)
+    form = deliveryDetails(instance=request_obj)
+    if request.method == 'POST':
+        form = deliveryDetails(request.POST)
+        if form.is_valid():
+            ngo = request.user
+            date = form.cleaned_data.get('pickupDate')
+            time = form.cleaned_data.get('pickupTime')
+            donationRequest.objects.filter(pk=pk).update(Pick_Up_date=date, Pick_Up_time=time,Acceptance_Status=True)
+
+    return render(request, 'DonationRequestSystem/donation_details.html',{'form': form, 'title': 'donation'})        
+
+
+def donationDetailsInPerson(request,pk):
+    
+    request_obj = donationRequest.objects.get(pk=pk)
+    
+    donationRequest.objects.filter(pk=pk).update(Acceptance_Status=True)
+
+    return redirect('dashboard')     
+
+def donationReject(pk):
+
+    donatedMedicines.objects.filter(donation_request=pk).delete()
+    return redirect('dashboard')
