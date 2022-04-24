@@ -6,12 +6,11 @@ from account.models import CustomUser
 class donationRequest(models.Model):
     Donor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='donor')
     NGO = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='ngo')
-    Medicine_list = models.CharField(max_length=25, blank=True)
     Delivery_type = models.CharField(max_length=11,blank=True)
     Pick_Up_address = models.CharField(max_length=150,blank=True)
     Acceptance_Status = models.BooleanField(default=False)
-    Pick_Up_date = models.DateField()
-    Pick_Up_time = models.TimeField()
+    Pick_Up_date = models.DateField(null=True,blank=True,default=None)
+    Pick_Up_time = models.TimeField(null=True,blank=True,default=None)
     Delivery_status = models.CharField(max_length=20,default='pending')
 
 

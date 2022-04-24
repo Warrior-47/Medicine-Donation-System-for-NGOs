@@ -61,7 +61,7 @@
                 </li>
                 {% endif %}
 
-                <li><a class="nav-link scrollto" href="#">Notifications</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'ngo_notification' %}">Notifications</a></li>
 
                 {% if user.is_authenticated %}
                     <li><a class="getstarted scrollto" href="{% url 'logout' %}">Logout</a></li>
