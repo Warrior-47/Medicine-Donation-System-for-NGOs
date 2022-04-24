@@ -38,5 +38,4 @@ def priority_search(request, search_type):
 def show_ngo_list(request, pk):
     ngo = CustomUser.objects.get(pk=pk)
     medicine_list = NGO_MedicineListInfo.objects.filter(NGO=ngo)
-
-    return render(request, 'search/ngo_medicine_list.html', { 'medicine_list': medicine_list, 'ngo_name': ngo.fullname })
+    return render(request, 'search/ngo_medicine_list.html', { 'medicine_list': medicine_list, 'ngo_name': ngo.fullname, 'ngo_pk': ngo.pk })

@@ -7,7 +7,7 @@
           <div class="col-xl-7 col-xl-12">
               <h1>
                 {{ ngo_name }}'s Medicine List
-                <span class="float-end mt-2"><a href="#" class="btn btn-primary">Donate</a></span>
+                <span class="float-end mt-2"><a href="{% url 'donation' pk=ngo_pk %}" class="btn btn-primary">Donate</a></span>
               </h1>
               <table class="table text-center table-hover border mt-2">
                   <thead>
