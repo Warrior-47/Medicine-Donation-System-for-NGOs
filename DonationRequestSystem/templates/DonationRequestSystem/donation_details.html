@@ -1,0 +1,41 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block main_css %}
+    <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container" style="border-radius: 10px;">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Donate</legend>
+                            {{ form|crispy }}
+                        </fieldset>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Submit"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'account/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'account/vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'account/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'account/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
+    <script src="{% static 'account/js/main.js' %}"></script>
+    
+    
+   
+    
+{% endblock %}
