@@ -79,14 +79,16 @@
                     <td>{{data.Pick_Up_date}}</td>
                     <td>{{data.Pick_Up_time}}</td>
                     {% if data.Acceptance_Status %}
-                      <td>Accepted</td>
+                      <td class="text-success">Accepted</td>
                     {% else %}
-                      <td>Rejected</td>
+                      <td class="text-danger">Rejected</td>
                     {% endif %}
                     {% if data.Delivery_status == 'Complete' %}
                       <td>Completed</td>
-                    {% else %}
+                    {% elif data.Acceptance_Status %}
                       <td>Pending</td>
+                    {% else %}
+                    <td></td>
                     {% endif %}
                   </tr>
                 {%endfor%}

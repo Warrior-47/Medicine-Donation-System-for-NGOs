@@ -1,19 +1,12 @@
-
-import re
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
-from dataclasses import fields
-from django.shortcuts import render
-from django.http import HttpResponse
 from .forms import NGO_MedicineListInfoForm, Donor_MedicineListInfoForm
-
 from DonationSystem.models import Donor_MedicineListInfo, NGO_MedicineListInfo
-from account.models import CustomUser
-import os
 
 
 # Create your views here.
-
+@login_required
 def dashboard(request):
     ngo_name = request.GET.get('ngo_name')
     if ngo_name:
@@ -29,6 +22,8 @@ def dashboard(request):
 
     return render(request, 'DonationSystem/dashboard.html')
 
+
+@login_required
 def edit_list(request):
     if request.user.is_ngo:
         context = NGO_MedicineListInfo.objects.filter(NGO=request.user)
@@ -37,6 +32,7 @@ def edit_list(request):
         
     return render(request, 'DonationSystem/edit_list.html', {'context':context, 'is_ngo': request.user.is_ngo })
 
+@login_required
 def add_medicine(request):
     if request.method == "POST":
         if request.user.is_ngo:
@@ -49,7 +45,7 @@ def add_medicine(request):
 
                 NGO_MedicineListInfo.objects.create(MedicineName=MedicineName,DosageAmount=DosageAmount,MedicinePriority=MedicinePriority
                                                 ,AmountRequired=AmountRequired,NGO=request.user)
-                return redirect('dashboard')
+                return redirect('edit-list')
                 
         else:
             form = Donor_MedicineListInfoForm(request.POST,request.FILES)
@@ -63,7 +59,7 @@ def add_medicine(request):
                                                 ,ExpiryDateImage=ExpiryDateImage,Donor=request.user)
 
                 
-                return redirect('dashboard')
+                return redirect('edit-list')
 
     else:
         if request.user.is_ngo:
@@ -74,6 +70,7 @@ def add_medicine(request):
     return render(request, 'DonationSystem/add_medicine.html', {'form': form, 'is_ngo': request.user.is_ngo })
 
 
+@login_required
 def update_medicine(request, pk):
     if request.method == "POST":
         if request.user.is_ngo:
@@ -81,13 +78,13 @@ def update_medicine(request, pk):
             form = NGO_MedicineListInfoForm(request.POST, instance = data)
             if form.is_valid():
                 form.save()
-                return redirect('dashboard')
+                return redirect('edit-list')
         else:
             data= Donor_MedicineListInfo.objects.get(id=pk)
             form = Donor_MedicineListInfoForm(request.POST,request.FILES, instance = data)
             if form.is_valid():
                 form.save()
-                return redirect('dashboard')
+                return redirect('edit-list')
     else:            
                 
         if request.user.is_ngo:
@@ -99,22 +96,10 @@ def update_medicine(request, pk):
 
     return render(request, 'DonationSystem/update_medicine.html', {'form': form, 'is_ngo': request.user.is_ngo })
 
+@login_required
 def delete_medicine(request, pk):
-    if request.method == "POST":
-        if request.user.is_ngo:
-            data= NGO_MedicineListInfo.objects.get(id=pk)
-            data.delete()
-            return redirect('dashboard')
-        else:
-            data= Donor_MedicineListInfo.objects.get(id=pk)
-            data.delete()
-            return redirect('dashboard')
+    if request.user.is_ngo:
+        data = NGO_MedicineListInfo.objects.get(pk=pk).delete()
     else:
-        if request.user.is_ngo:
-                data= NGO_MedicineListInfo.objects.get(id=pk)
-                form = NGO_MedicineListInfoForm(instance = data)
-        else:
-                data= Donor_MedicineListInfo.objects.get(id=pk)
-                form = Donor_MedicineListInfoForm(instance = data)
-
-    return render(request, 'DonationSystem/delete_medicine.html', {'form': form, 'is_ngo': request.user.is_ngo })
+        data = Donor_MedicineListInfo.objects.get(pk=pk).delete()
+    return redirect('edit-list')

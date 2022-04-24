@@ -51,8 +51,8 @@
                     <td class="w-25 align-middle">{{data.MedicineName}}</td>
                     <td class="w-25 align-middle">{{data.DosageAmount}}</td>
                     <td class="w-25 align-middle">{{data.PillsLeft}}</td>
-                    <td><a class="btn btn-success" href="{% url 'update-medicine' data.id %}">Update</a></td>
-                    <td><a class="btn btn-danger" href="{% url 'delete-medicine' data.id  %}">Delete</a></td>
+                    <td class="w-25 align-middle"><a class="btn btn-success" href="{% url 'update-medicine' data.id %}">Update</a></td>
+                    <td class="w-25 align-middle"><a class="btn btn-danger" href="{% url 'delete-medicine' data.id  %}">Delete</a></td>
                   </tr>
                 {%endfor%}
                 </tbody>

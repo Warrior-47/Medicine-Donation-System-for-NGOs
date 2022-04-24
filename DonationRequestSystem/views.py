@@ -1,9 +1,7 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
 from django.contrib import messages
 
-from DonationSystem.views import dashboard
+from django.contrib.auth.decorators import login_required
 
 from .forms import donationRequestForm,deliveryDetails
 from  account.models import CustomUser
@@ -11,6 +9,7 @@ from DonationSystem.models import Donor_MedicineListInfo,NGO_MedicineListInfo
 from DonationRequestSystem.models import donationRequest,donatedMedicines
 
 # Donation form for donor
+@login_required
 def donation(request,pk):
     if request.method == 'POST':
         form = donationRequestForm(request.POST)
@@ -42,6 +41,7 @@ def donation(request,pk):
     return render(request, 'DonationRequestSystem/donation_request.html', {'form': form, 'title': 'donation'})
 
 # Notification Page
+@login_required
 def donation_decision(request):
     if request.user.is_authenticated:
         if request.user.is_ngo:
@@ -67,6 +67,7 @@ def donation_decision(request):
     return render(request, 'DonationRequestSystem/ngo_notification.html')
 
 # Choose Pickup Date and Time for NGO
+@login_required
 def donationDetails(request,pk):
     request_obj = donationRequest.objects.get(pk=pk)
     form = deliveryDetails(instance=request_obj)
@@ -83,6 +84,7 @@ def donationDetails(request,pk):
     return render(request, 'DonationRequestSystem/donation_details.html',{'form': form, 'title': 'donation'})        
 
 # NGO Accepting In-Person Request
+@login_required
 def donationDetailsInPerson(request,pk):
     
     request_obj = donationRequest.objects.get(pk=pk)
@@ -92,10 +94,12 @@ def donationDetailsInPerson(request,pk):
     return redirect('ngo_notification')
 
 # NGO Rejecting Request
+@login_required
 def donationReject(request, pk):
     donatedMedicines.objects.filter(donation_request=pk).delete()
     return redirect('dashboard')
 
+@login_required
 def donationComplete(request,pk):
     donationRequest.objects.filter(pk=pk).update(Delivery_status='Complete')
     return redirect('ngo_notification')
