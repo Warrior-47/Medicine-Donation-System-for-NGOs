@@ -55,13 +55,13 @@
                 {% if not request.user.is_ngo %}
                 <li class="dropdown"><a href="#"><span>Prioritized Search</span> <i class="bi bi-chevron-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'medicine_priority' %}">Prioritize Medicine</a></li>
-                        <li><a href="{% url 'distance_priority' %}">Prioritize Distance</a></li>
+                        <li><a href="{% url 'priority_search' search_type='medicine' %}">Prioritize Medicine</a></li>
+                        <li><a href="{% url 'priority_search' search_type='distance' %}">Prioritize Distance</a></li>
                     </ul>
                 </li>
                 {% endif %}
 
-                <li><a class="nav-link scrollto" href="#">Notifications</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'ngo_notification' %}">Notifications</a></li>
 
                 {% if user.is_authenticated %}
                     <li><a class="getstarted scrollto" href="{% url 'logout' %}">Logout</a></li>
