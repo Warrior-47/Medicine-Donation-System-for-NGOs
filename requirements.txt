@@ -1,0 +1,10 @@
+-i https://pypi.org/simple
+asgiref==3.8.1; python_version >= '3.8'
+backports-zoneinfo==0.2.1; python_version >= '3.6'
+crispy-bootstrap4==2024.1; python_version >= '3.8'
+django==4.2.15; python_version >= '3.8'
+django-crispy-forms==2.3; python_version >= '3.8'
+pillow==10.4.0; python_version >= '3.8'
+sqlparse==0.5.1; python_version >= '3.8'
+typing-extensions==4.12.2; python_version < '3.11'
+tzdata==2024.1; sys_platform == 'win32'
