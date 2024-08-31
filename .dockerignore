@@ -1,8 +1,11 @@
 # Ignore existing database file
-db.sqlite3
+database/
 
 # Ignore Pipfiles
 Pipfile*
 
 # Ignore VSCode workspace settings
 .vscode
+
+# Ignore infra code
+infra/
