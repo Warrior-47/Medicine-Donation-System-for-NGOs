@@ -20,3 +20,10 @@ spec:
         image: warrior47/django-app:1.0
         ports:
         - containerPort: 8000
+        volumeMounts:
+        - name: sqlite3
+          mountPath: "/app/database"
+      volumes:
+      - name: sqlite3
+        persistentVolumeClaim:
+          claimName: sqlite3-pvc
