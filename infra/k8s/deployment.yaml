@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: django-app
-        image: warrior47/django-app:1.0
+        image: warrior47/django-app:latest
         ports:
         - containerPort: 8000
         volumeMounts:
