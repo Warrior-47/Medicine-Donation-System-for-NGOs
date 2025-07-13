@@ -130,3 +130,6 @@ dmypy.json
 
 # Ignore VS Code workspace config directory
 .vscode
+
+# Ingore local automation files
+.automation/
