@@ -1,0 +1,13 @@
+### Things left to do:
+- [ ] Create Jenkins server
+  - [ ] Try to make it so that you can use a local Jenkins server
+  - [ ] Otherwise, you have to keep a EC2 running in AWS
+- [ ] Write Terraform code
+  - [ ] Write Terraform code such that nothing needs to be manually done
+  - [ ] Terraform will be applied by Jenkins
+- [ ] Update kubernetes code
+  - [ ] It should work with microk8s
+  - [ ] Introduce HPA
+- [ ] Add Helmfile charts
+- [ ] Update Django code to work with AWS RDS
+- [ ] Consider using DNS
