@@ -20,10 +20,8 @@ spec:
         image: warrior47/django-app:latest
         ports:
         - containerPort: 8000
-        volumeMounts:
-        - name: sqlite3
-          mountPath: "/app/database"
-      volumes:
-      - name: sqlite3
-        persistentVolumeClaim:
-          claimName: sqlite3-pvc
+        envFrom:
+        - configMapRef:
+            name: django-config
+        - secretRef:
+            name: django-secrets
