@@ -1,6 +1,6 @@
 FROM python:3.8-alpine AS base
 
-RUN apk add --update gcc libc-dev
+RUN apk add --update gcc libc-dev libffi-dev openssl-dev
 
 COPY requirements.txt .
 
