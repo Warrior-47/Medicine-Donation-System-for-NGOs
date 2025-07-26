@@ -1,0 +1,31 @@
+global:
+  docker_user: warrior47
+
+# TODO: Move secrets to AWS Secrets Manager
+mysql:
+  root_password: rootpassword   # TODO: Move to external secret store
+  database: medicine_donation
+  user: admin
+  password: password123         # TODO: Move to external secret store
+
+apps:
+  django_app:
+    name: django-app
+    replicas: 4
+    maxSurge: 50%
+    maxUnavailable: 50%
+    imageVersion: latest
+    containerPort: 8000
+    servicePort: 80
+    serviceType: NodePort
+
+configmaps:
+  django-app-config:
+    DB_NAME: "medicine_donation"
+    DB_USER: "admin"
+    DB_HOST: "mysql.db.svc.cluster.local"
+    DB_PORT: "3306"
+
+secrets:
+  django-app-secrets:
+    DB_PASSWORD: cGFzc3dvcmQxMjM=  # TODO: Move to external secret store

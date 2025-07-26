@@ -133,3 +133,6 @@ dmypy.json
 
 # Ingore local automation files
 .automation/
+
+# Don't ignore the following files, they are essential for infrastructure
+!infra/helmfile/env

@@ -1,0 +1,37 @@
+{{- range .Values.apps }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    app: {{ .name }}
+spec:
+  replicas: {{ .replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ .maxSurge }}
+      maxUnavailable: {{ .maxUnavailable }}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+      - name: {{ .name }}
+        image: {{ $.Values.docker_user }}/{{ .name }}:{{ .imageVersion }}
+        imagePullPolicy: Always
+        ports:
+        - name: app
+          containerPort: {{ .containerPort }}
+        envFrom:
+        - configMapRef:
+            name: {{ .name }}-config
+        - secretRef:
+            name: {{ .name }}-secrets
+{{- end }}

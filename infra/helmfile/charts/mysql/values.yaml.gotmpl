@@ -1,0 +1,5 @@
+auth:
+    rootPassword: {{ .Values | get "mysql.root_password" "default" }}
+    database: {{ .Values | get "mysql.database" "default_db" }}
+    username: {{ .Values | get "mysql.user" "default_user" }}
+    password: {{ .Values | get "mysql.password" "default_password" }}

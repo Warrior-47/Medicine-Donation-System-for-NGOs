@@ -1,0 +1,35 @@
+environments:
+  local:
+    values:
+    - values/local.yaml
+
+---
+templates:
+  default: &default
+    chart: ./charts/{{ .Release.Name }}
+    missingFileHandler: Warn
+    values:
+    - charts/{{ .Release.Name }}/values.yaml.gotmpl
+  utilities: &utilities
+    chart: ./charts/{{ .Release.Name }}/{{ .Release.Name }}-{{ .Release.Labels.version }}.tgz
+    missingFileHandler: Warn
+    values:
+    - charts/{{ .Release.Name }}/values.yaml.gotmpl
+
+releases:
+- name: mysql
+  installed: true
+  namespace: db
+  labels:
+    version: 13.0.4
+  wait: true
+  <<: *utilities
+
+- name: django-app
+  installed: true
+  namespace: app
+  labels:
+    version: 1.0
+  needs:
+    - db/mysql
+  <<: *default
