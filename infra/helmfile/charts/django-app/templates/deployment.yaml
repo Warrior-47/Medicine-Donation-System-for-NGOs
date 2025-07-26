@@ -34,4 +34,20 @@ spec:
             name: {{ .name }}-config
         - secretRef:
             name: {{ .name }}-secrets
+        livenessProbe:
+          httpGet:
+            path: {{ .healthCheckUrl }}
+            port: {{ .containerPort }}
+          periodSeconds: {{ .liveness_periodSeconds }}
+          timeoutSeconds: {{ .liveness_timeoutSeconds }}
+          failureThreshold: {{ .liveness_failureThreshold }}
+        readinessProbe:
+          httpGet:
+            path: {{ .healthCheckUrl }}
+            port: {{ .containerPort }}
+          periodSeconds: {{ .readiness_periodSeconds }}
+          timeoutSeconds: {{ .readiness_timeoutSeconds }}
+          failureThreshold: {{ .readiness_failureThreshold }}
+          successThreshold: 1
+          
 {{- end }}

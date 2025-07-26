@@ -12,12 +12,19 @@ apps:
   django_app:
     name: django-app
     replicas: 4
-    maxSurge: 50%
-    maxUnavailable: 50%
+    maxSurge: 1
+    maxUnavailable: 10%
     imageVersion: latest
     containerPort: 8000
     servicePort: 80
     serviceType: NodePort
+    healthCheckUrl: /health
+    liveness_periodSeconds: 10
+    liveness_timeoutSeconds: 5
+    liveness_failureThreshold: 3
+    readiness_periodSeconds: 5
+    readiness_timeoutSeconds: 5
+    readiness_failureThreshold: 3
 
 configmaps:
   django-app-config:

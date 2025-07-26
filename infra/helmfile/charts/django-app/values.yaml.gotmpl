@@ -3,14 +3,7 @@ docker_user: {{ .Values | get "global.docker_user" "default" }}
 apps:
   {{- range $app_name, $value := .Values.apps }}
   {{ $app_name }}:
-    name: {{ $value.name }}
-    replicas: {{ $value.replicas }}
-    maxSurge: {{ $value.maxSurge }}
-    maxUnavailable: {{ $value.maxUnavailable }}
-    imageVersion: {{ $value.imageVersion }}
-    containerPort: {{ $value.containerPort }}
-    servicePort: {{ $value.servicePort }}
-    serviceType: {{ $value.serviceType }}
+    {{ $value | toYaml | indent 4 | trim }}
   {{ end }}
 
 configmaps:

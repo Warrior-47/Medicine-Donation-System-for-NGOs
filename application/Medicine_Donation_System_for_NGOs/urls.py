@@ -22,4 +22,5 @@ urlpatterns = [
     path('accounts/', include('account.urls')),
     path('search/', include('search.urls')),
     path('donations/', include('DonationRequestSystem.urls')),
+    path('health/', include('health.urls')),
 ]
