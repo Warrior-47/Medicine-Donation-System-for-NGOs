@@ -29,6 +29,11 @@ spec:
         ports:
         - name: app
           containerPort: {{ .containerPort }}
+        {{- if .use_pvc }}
+        volumeMounts:
+        - name: {{ .pvc_name }}
+          mountPath: {{ .mount_path }}
+        {{- end }}
         envFrom:
         - configMapRef:
             name: {{ .name }}-config
@@ -49,5 +54,11 @@ spec:
           timeoutSeconds: {{ .readiness_timeoutSeconds }}
           failureThreshold: {{ .readiness_failureThreshold }}
           successThreshold: 1
+      {{- if .use_pvc }}
+      volumes:
+      - name: {{ .pvc_name }}
+        persistentVolumeClaim:
+          claimName: {{ .pvc_name }}-pvc
+      {{- end }}
           
 {{- end }}

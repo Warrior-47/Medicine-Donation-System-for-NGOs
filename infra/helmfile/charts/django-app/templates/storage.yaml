@@ -1,0 +1,27 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ $.Release.Name }}-sc
+  namespace: {{ $.Release.Namespace }}
+provisioner: hostpath.csi.k8s.io
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+
+{{- range .Values.apps }}
+{{- if .use_pvc }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .pvc_name }}-pvc
+  namespace: {{ $.Release.Namespace }}
+spec:
+  accessModes:
+    - {{ .access_mode }}
+  storageClassName: {{ $.Release.Name }}-sc
+  resources:
+    requests:
+      storage: {{ .storage_size }}
+{{- end }}
+{{- end }}

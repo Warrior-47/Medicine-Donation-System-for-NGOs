@@ -11,7 +11,7 @@ mysql:
 apps:
   django_app:
     name: django-app
-    replicas: 4
+    replicas: 2
     maxSurge: 1
     maxUnavailable: 10%
     imageVersion: latest
@@ -25,6 +25,11 @@ apps:
     readiness_periodSeconds: 5
     readiness_timeoutSeconds: 5
     readiness_failureThreshold: 3
+    use_pvc: true
+    pvc_name: static-images
+    access_mode: ReadWriteOnce
+    storage_size: 500Mi
+    mount_path: /app/static/img/medicine_images
 
 configmaps:
   django-app-config:
