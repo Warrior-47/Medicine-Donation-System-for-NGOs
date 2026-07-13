@@ -1,0 +1,102 @@
+{% extends "DonationSystem/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<section id="hero" class="d-flex align-items-center">
+  <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+    <div class="row justify-content-center">
+        <div class="col-xl-7 col-xl-12">
+            <h1>Donation Requests</h1>
+            {% if user.is_authenticated and is_ngo %}
+            <table class="table text-center table-hover border mt-2">
+                <thead>
+                  <tr class= "table-primary">
+                    <th scope="col">Donor Name</th>
+                    <th scope="col">Delivery Type</th>
+                    <th scope="col">Pick-up Address</th>
+                    <th><center>Acceptance Status</center></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for data in context %}
+                  <tr>
+                    <td>{{data.Donor_name}}</td>
+                    <td>{{data.Delivery_type}}</td>
+                    <td>{{data.Pick_Up_address}}</td>
+
+                    {% if data.Delivery_type == 'Pick-up' %}
+                        <td><center><a class="btn btn-success" href="{% url 'donationDetails' pk=data.pk %}" >Accept</a>
+                    {% else %}
+                        <td><center><a class="btn btn-success" href="{% url 'donationDetailsIP' pk=data.pk %}" >Accept</a>
+                    {% endif %}
+
+                    <a class="btn btn-danger" href="{% url 'donationReject' pk=data.pk %}">Reject</a></center></td>
+                  </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+
+            <hr>
+            <h1 class="mt-5">Accepted Request Details</h1>
+            <table class="table text-center table-hover border mt-2">
+              <thead>
+                <tr class= "table-primary">
+                  <th>Donor Name</th>
+                  <th>Donor Contact Number</th>
+                  <th>Donor Address</th>
+                  <th><center>Acceptance Status</center></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for data in accepted_donors %}
+                  <tr>
+                    <td>{{data.Donor_name}}</td>
+                    <td>{{data.Donor_phone}}</td>
+                    <td>{{data.Pick_Up_address}}</td>
+                    <td><center><a class="btn btn-success" href="{% url 'donationComplete' pk=data.pk %}" >Mark As Complete</a>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+            {% elif user.is_authenticated %}
+            <table class="table text-center table-hover border mt-2">
+              <thead>
+                <tr class= "table-primary">
+                  <th>NGO Name</th>
+                  <th>Delivery Type</th>
+                  <th>Pick-Up Date</th>
+                  <th>Pick-Up Time</th>
+                  <th>Acceptance Status</th>
+                  <th>Delivery Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for data in context %}
+                  <tr>
+                    <td>{{data.NGO_name}}</td>
+                    <td>{{data.Delivery_type}}</td>
+                    <td>{{data.Pick_Up_date}}</td>
+                    <td>{{data.Pick_Up_time}}</td>
+                    {% if data.Acceptance_Status %}
+                      <td class="text-success">Accepted</td>
+                    {% else %}
+                      <td class="text-danger">Rejected</td>
+                    {% endif %}
+                    {% if data.Delivery_status == 'Complete' %}
+                      <td>Completed</td>
+                    {% elif data.Acceptance_Status %}
+                      <td>Pending</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+            {%endif%}
+        </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

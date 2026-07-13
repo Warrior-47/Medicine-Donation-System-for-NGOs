@@ -1,0 +1,10 @@
+# Local virtual environment and caches
+.venv/
+__pycache__/
+*.pyc
+
+# Local development database
+db.sqlite3
+
+# Locally uploaded media (PVC-backed in the cluster)
+static/img/medicine_images/

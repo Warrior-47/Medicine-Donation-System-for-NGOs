@@ -1,9 +1,15 @@
 # Medicine Donation System for NGOs
-A website built using Django to easily donate medicine to underprivileged people through NGOs
 
-## How to start
-Follow the following steps to start the web application.
-1. Clone the repository to your destination.
-2. Use `pipenv` to install necessary packages and set up a virtual environment.
-3. Run `python manage.py migrate` to create database and migrate models to database.
-4. Run `python manage.py runserver` to start the server.
+A website to easily donate medicine to underprivileged people through
+NGOs, built with Django as four microservices:
+
+| Service | Responsibility |
+|---|---|
+| `application/user-service` | accounts, login, admin |
+| `application/medicine-service` | dashboard, medicine lists, image uploads |
+| `application/search-service` | NGO search & priority matching (stateless) |
+| `application/donation-service` | donation request lifecycle |
+
+See [`application/README.md`](application/README.md) for the
+architecture, cross-service contracts, configuration, local development
+and image builds. Deployment lives under [`infra/`](infra/) (helmfile).

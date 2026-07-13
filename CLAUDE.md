@@ -1,0 +1,1 @@
+This project is structured into a application directory and infra directory. Use the @application/CLAUDE.md file to understand the application.

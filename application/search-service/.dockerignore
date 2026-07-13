@@ -1,0 +1,7 @@
+# Local virtual environment and caches
+.venv/
+__pycache__/
+*.pyc
+
+# Boot-only placeholder database
+unused.sqlite3

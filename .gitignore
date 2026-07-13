@@ -136,3 +136,9 @@ dmypy.json
 
 # Don't ignore the following files, they are essential for infrastructure
 !infra/helmfile/env
+
+# Uploaded media created by local runs of medicine-service
+application/*/static/img/medicine_images/
+
+# search-service boot-only placeholder database
+unused.sqlite3

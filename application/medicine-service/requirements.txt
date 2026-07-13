@@ -1,0 +1,7 @@
+Django>=4.2.15,<4.3
+django-crispy-forms>=2.3
+crispy-bootstrap4>=2024.1
+pillow>=10.4.0
+PyMySQL>=1.1.0
+cryptography>=41.0.7
+tzdata

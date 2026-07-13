@@ -1,0 +1,7 @@
+# Local virtual environment and caches
+.venv/
+__pycache__/
+*.pyc
+
+# Local development database
+db.sqlite3
